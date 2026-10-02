@@ -1,0 +1,139 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Workbench · theme: studied-DNA (source: image) → locked in DESIGN.md
+ * H2 split-diptych hero (night) · nav: N5 floating pill · footer: Ft2 inline single line · enrichment: Tier A CSS glow + Tier B SVG orbits
+ * paper #F4F2EE · ink #1D1C1A · accent ember #BF4318 (next action only) · display/body: Geist · numerals/labels: Geist Mono
+ * pre-emit critique: P4 H4 E4 S4 R5 V4
+ */
+@import "tailwindcss";
+
+/* Tokens mirror DESIGN.md. Components reference these names only. */
+@theme {
+  --color-ink: #1d1c1a;
+  --color-on-ink: #faf8f4;
+  --color-graphite: #5e5a53;
+  --color-ember: #bf4318;
+  --color-ember-hover: #a83a13;
+  --color-on-ember: #fff8f2;
+  --color-ember-glow: #f26a2e;
+  --color-paper: #f4f2ee;
+  --color-paper-raised: #fefdfb;
+  --color-paper-sunken: #ece9e3;
+  --color-rule: #e3dfd7;
+  --color-rule-strong: #cfc9bf;
+  --color-moss: #2e6b47;
+  --color-moss-tint: #e7f0e9;
+  --color-expense-tint: #f7e9e1;
+  --color-brick: #a8321f;
+  --color-brick-hover: #8f2919;
+  --color-brick-tint: #f8e6e2;
+  --color-night: #141311;
+  --color-night-raised: #201e1b;
+  --color-night-rule: #34312c;
+  --color-on-night: #f1ede6;
+  --color-night-muted: #a8a197;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --shadow-float: 0 12px 32px -16px rgb(29 28 26 / 0.28), 0 2px 6px -2px rgb(29 28 26 / 0.08);
+  --shadow-night: 0 24px 64px -24px rgb(0 0 0 / 0.55);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-rise: rise 520ms var(--ease-out) both;
+  --animate-fade: fade 220ms var(--ease-out) both;
+  --animate-sheet: sheet 280ms var(--ease-out) both;
+  --animate-pulse-soft: pulse-soft 1.6s var(--ease-in-out) infinite;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes sheet {
+    from { opacity: 0; transform: translateY(16px) scale(0.985); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+}
+
+:root {
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+  color-scheme: light;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-on-ink);
+}
+
+/* Focus shows instantly, never animated. */
+:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 2px;
+}
+
+.tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "zero" 0;
+}
+
+/* Native dialog: scrim + entrance. */
+dialog::backdrop {
+  background: rgb(29 28 26 / 0.42);
+  animation: fade 200ms var(--ease-out) both;
+}
+
+/* Hero orbit lines drift very slowly; the only ambient motion in the product. */
+@keyframes orbit-drift {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.orbit-drift {
+  animation: orbit-drift 240s linear infinite;
+  transform-origin: 85% 0%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after,
+  dialog::backdrop {
+    animation-duration: 120ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+  }
+  .orbit-drift {
+    animation: none;
+  }
+}
