@@ -1,7 +1,9 @@
 import "server-only";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { supabaseKey, supabaseUrl } from "./env";
+import { redirect } from "next/navigation";
+import { connection } from "next/server";
+import { isSupabaseConfigured, supabaseKey, supabaseUrl } from "./env";
 
 /** Supabase client for Server Components, Server Actions and Route Handlers. */
 export async function createClient() {
@@ -24,8 +26,17 @@ export async function createClient() {
   });
 }
 
+/** For protected pages: always request-time, and redirects to /login when signed out. */
+export async function requireUser(next = "/dashboard") {
+  await connection();
+  const user = await getCurrentUser();
+  if (!user) redirect(`/login?next=${encodeURIComponent(next)}`);
+  return user;
+}
+
 /** The verified current user, or null. Uses getClaims(), which validates the JWT. */
 export async function getCurrentUser() {
+  if (!isSupabaseConfigured) return null;
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getClaims();
   if (error || !data?.claims) return null;

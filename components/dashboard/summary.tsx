@@ -53,8 +53,8 @@ export function SummaryCard({ kind, amount }: { kind: "income" | "expense"; amou
         </span>
         <h2 className="text-sm font-semibold">{income ? "Income" : "Expenses"}</h2>
       </div>
-      <p className={`tabular text-[22px] font-semibold tracking-[-0.03em] sm:text-2xl ${income ? "text-moss" : "text-ink"}`}>
-        {income ? "+" : "−"}
+      <p className={`tabular whitespace-nowrap text-[clamp(17px,4.6vw,22px)] font-semibold tracking-[-0.03em] sm:text-2xl ${income ? "text-moss" : "text-ink"}`}>
+        {amount > 0 ? (income ? "+" : "−") : ""}
         {formatCurrency(amount)}
       </p>
     </section>

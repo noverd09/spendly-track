@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { Plus } from "lucide-react";
 import { createContext, useCallback, useContext, useMemo, useState, useTransition, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
@@ -68,7 +69,13 @@ export function TransactionDialogs({ children }: { children: ReactNode }) {
         description={state.mode === "edit" ? "Changes update your totals right away." : "Record money coming in or going out."}
       >
         {isForm ? (
-          <TransactionForm key={formKey} transaction={state.mode === "edit" ? state.transaction : undefined} onDone={done} onCancel={close} />
+          <TransactionForm
+            key={formKey}
+            transaction={state.mode === "edit" ? state.transaction : undefined}
+            onDone={done}
+            onCancel={close}
+            onDelete={state.mode === "edit" ? () => api.openDelete(state.transaction) : undefined}
+          />
         ) : null}
       </Dialog>
       <DeleteDialog transaction={state.mode === "delete" ? state.transaction : null} onClose={close} onDeleted={() => done("Transaction deleted")} />
@@ -109,7 +116,7 @@ function DeleteDialog({ transaction, onClose, onDeleted }: { transaction: Transa
           </div>
           {error ? <ErrorNote>{error}</ErrorNote> : null}
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-            <Button type="button" variant="ghost" onClick={close} disabled={pending} autoFocus>
+            <Button type="button" variant="ghost" onClick={close} disabled={pending} data-autofocus>
               Cancel
             </Button>
             <Button type="button" variant="danger" onClick={confirm} loading={pending}>
@@ -125,16 +132,8 @@ function DeleteDialog({ transaction, onClose, onDeleted }: { transaction: Transa
 export function AddTransactionButton({ className = "", label = "Add transaction" }: { className?: string; label?: string }) {
   const { openCreate } = useTransactionDialogs();
   return (
-    <Button onClick={openCreate} className={className} icon={<PlusIcon />}>
+    <Button onClick={openCreate} className={className} icon={<Plus aria-hidden className="size-4" strokeWidth={2} />}>
       {label}
     </Button>
-  );
-}
-
-function PlusIcon() {
-  return (
-    <svg viewBox="0 0 16 16" aria-hidden className="size-4">
-      <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
   );
 }

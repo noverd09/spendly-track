@@ -32,7 +32,11 @@ export function Dialog({
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
+    if (open && !dialog.open) {
+      dialog.showModal();
+      // React's autoFocus runs before showModal(); honour data-autofocus instead.
+      dialog.querySelector<HTMLElement>("[data-autofocus]")?.focus();
+    }
     if (!open && dialog.open) dialog.close();
   }, [open]);
 
@@ -42,7 +46,11 @@ export function Dialog({
       role={role}
       aria-labelledby={titleId}
       aria-describedby={description ? descriptionId : undefined}
-      onClose={onClose}
+      onClose={() => {
+        // Only report closes the user caused; a close driven by `open` going
+        // false (e.g. swapping to another dialog) must not reset parent state.
+        if (open) onClose();
+      }}
       onCancel={(e) => {
         e.preventDefault();
         onClose();

@@ -36,7 +36,6 @@ function EmptyArt({ kind }: { kind: "ledger" | "chart" | "search" }) {
         <>
           <rect x="18" y="8" width="60" height="48" rx="6" {...common} />
           <path d="M28 22h26M28 32h34M28 42h20" {...common} />
-          <path d="M66 40l-2 4" {...common} className="text-ember" stroke="currentColor" />
           <circle cx="68" cy="22" r="3" className="fill-ember-glow" stroke="none" />
         </>
       )}

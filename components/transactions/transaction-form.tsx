@@ -15,7 +15,17 @@ import type { Transaction, TransactionInput, TransactionType } from "@/types/tra
 type Errors = Partial<Record<keyof TransactionInput, string>>;
 
 /** One form for create and edit. Validates locally, then the server re-validates. */
-export function TransactionForm({ transaction, onDone, onCancel }: { transaction?: Transaction; onDone: (message: string) => void; onCancel: () => void }) {
+export function TransactionForm({
+  transaction,
+  onDone,
+  onCancel,
+  onDelete,
+}: {
+  transaction?: Transaction;
+  onDone: (message: string) => void;
+  onCancel: () => void;
+  onDelete?: () => void;
+}) {
   const [type, setType] = useState<TransactionType>(transaction?.type ?? "expense");
   const [amount, setAmount] = useState(transaction ? transaction.amount.toFixed(2) : "");
   const [category, setCategory] = useState(transaction?.category ?? "");
@@ -82,7 +92,7 @@ export function TransactionForm({ transaction, onDone, onCancel }: { transaction
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             className="tabular pl-8 text-lg"
-            autoFocus
+            data-autofocus
           />
         </div>
       </Field>
@@ -125,6 +135,11 @@ export function TransactionForm({ transaction, onDone, onCancel }: { transaction
       {formError ? <ErrorNote>{formError}</ErrorNote> : null}
 
       <div className="mt-1 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+        {onDelete ? (
+          <Button type="button" variant="danger-quiet" onClick={onDelete} disabled={pending} className="sm:mr-auto">
+            Delete
+          </Button>
+        ) : null}
         <Button type="button" variant="ghost" onClick={onCancel} disabled={pending}>
           Cancel
         </Button>

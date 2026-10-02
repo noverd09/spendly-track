@@ -26,7 +26,11 @@ export function SignedAmount({ amount, type, className = "" }: { amount: number;
   );
 }
 
-/** One ledger row. Actions are always visible on touch, revealed on hover/focus with a pointer. */
+/**
+ * One ledger row. On phones the whole row opens edit (delete lives in that
+ * dialog), so titles keep their width. From sm up, icon actions show on
+ * hover/focus with a pointer and stay visible on touch.
+ */
 export function TransactionItem({ transaction, actions = true }: { transaction: Transaction; actions?: boolean }) {
   const { openEdit, openDelete } = useTransactionDialogs();
   const title = transaction.description || transaction.category;
@@ -43,7 +47,15 @@ export function TransactionItem({ transaction, actions = true }: { transaction: 
       </div>
       <SignedAmount amount={transaction.amount} type={transaction.type} />
       {actions ? (
-        <div className="flex shrink-0 items-center gap-0.5 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-focus-within:opacity-100 [@media(hover:hover)]:group-hover:opacity-100 transition-opacity duration-[120ms]">
+        <button
+          type="button"
+          onClick={() => openEdit(transaction)}
+          className="absolute inset-0 rounded-none sm:hidden"
+          aria-label={`Edit ${title}`}
+        />
+      ) : null}
+      {actions ? (
+        <div className="hidden shrink-0 items-center gap-0.5 sm:flex [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-focus-within:opacity-100 [@media(hover:hover)]:group-hover:opacity-100 transition-opacity duration-[120ms]">
           <button
             type="button"
             onClick={() => openEdit(transaction)}

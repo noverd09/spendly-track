@@ -77,8 +77,8 @@ export function Workbench() {
           <Step index="03" title="Stay organized" body="Keep all your transactions in one place. Search, filter by type or category, and fix any entry in two taps.">
             <div className="overflow-hidden rounded-lg border border-rule bg-paper-raised">
               <div aria-hidden className="flex items-center gap-2 border-b border-rule px-4 py-3 text-[15px] text-graphite sm:px-5">
-                <Search className="size-4" /> food
-                <span className="ml-auto rounded-full bg-paper-sunken px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em]">Expenses</span>
+                <Search className="size-4" /> Search transactions
+                <span className="ml-auto rounded-full bg-ink px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-on-ink">Expenses</span>
               </div>
               <ul className="divide-y divide-rule">
                 {list.map((t) => (

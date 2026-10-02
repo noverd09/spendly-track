@@ -42,7 +42,9 @@ function Sidebar({ email }: { email: string }) {
   return (
     <aside className="sticky top-0 hidden h-dvh flex-col border-r border-rule bg-paper-raised md:flex">
       <div className="flex h-16 items-center px-5 lg:px-6">
-        <Logo href="/dashboard" className="hidden lg:inline-flex" />
+        <div className="hidden lg:block">
+          <Logo href="/dashboard" />
+        </div>
         <Link href="/dashboard" aria-label="Spendly dashboard" className="text-ink lg:hidden">
           <LogoMark className="size-7" />
         </Link>

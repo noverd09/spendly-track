@@ -2,7 +2,7 @@ import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOut } from "@/lib/auth/actions";
 import { DEFAULT_CURRENCY, formatCurrency } from "@/lib/currency";
-import { getCurrentUser } from "@/lib/supabase/server";
+import { requireUser } from "@/lib/supabase/server";
 
 export const metadata = { title: "Settings" };
 
@@ -19,7 +19,7 @@ function Row({ label, children, hint }: { label: string; children: React.ReactNo
 }
 
 export default async function SettingsPage() {
-  const user = (await getCurrentUser())!;
+  const user = await requireUser("/dashboard/settings");
 
   return (
     <div className="flex max-w-2xl flex-col gap-6">

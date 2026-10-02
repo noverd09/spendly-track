@@ -39,7 +39,7 @@ export function LoginForm({ next, notice }: { next?: string; notice?: string }) 
         <PasswordInput id="password" name="password" autoComplete="current-password" />
       </Field>
       {state?.error ? <ErrorNote>{state.error}</ErrorNote> : null}
-      <Button type="submit" size="lg" variant="ink" loading={pending} className="mt-2 w-full">
+      <Button type="submit" size="lg" loading={pending} className="mt-2 w-full">
         {pending ? "Signing in…" : "Sign in"}
       </Button>
     </form>

@@ -158,14 +158,14 @@ export function TransactionTable({ transactions }: { transactions: Transaction[]
         ) : (
           <>
             {/* Phone + tablet: ledger rows */}
-            <ul className="divide-y divide-rule md:hidden">
+            <ul className="divide-y divide-rule lg:hidden">
               {rows.map((t) => (
                 <TransactionItem key={t.id} transaction={t} />
               ))}
             </ul>
 
             {/* Desktop: table */}
-            <table className="hidden w-full text-left md:table">
+            <table className="hidden w-full text-left lg:table">
               <caption className="sr-only">Your transactions</caption>
               <thead>
                 <tr className="border-b border-rule text-[11px] uppercase tracking-[0.1em] text-graphite [&>th]:px-5 [&>th]:py-3 [&>th]:font-mono [&>th]:font-normal">
@@ -205,7 +205,7 @@ export function TransactionTable({ transactions }: { transactions: Transaction[]
                         <SignedAmount amount={t.amount} type={t.type} />
                       </td>
                       <td>
-                        <div className="flex justify-end gap-0.5 opacity-0 transition-opacity duration-[120ms] group-focus-within:opacity-100 group-hover:opacity-100">
+                        <div className="flex justify-end gap-0.5 transition-opacity duration-[120ms] [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-focus-within:opacity-100 [@media(hover:hover)]:group-hover:opacity-100">
                           <button
                             type="button"
                             onClick={() => openEdit(t)}

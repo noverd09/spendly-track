@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { LoaderCircle } from "lucide-react";
 
-type Variant = "primary" | "ink" | "ghost" | "danger" | "quiet" | "light";
+type Variant = "primary" | "ink" | "ghost" | "danger" | "danger-quiet" | "quiet" | "night-quiet";
 type Size = "md" | "sm" | "lg" | "icon";
 
 const base =
@@ -15,27 +15,31 @@ const variants: Record<Variant, string> = {
   ink: "bg-ink text-on-ink hover:bg-ink/88",
   ghost: "bg-paper-sunken text-ink hover:bg-rule",
   danger: "bg-brick text-on-ink hover:bg-brick-hover",
+  "danger-quiet": "text-brick hover:bg-brick-tint",
   quiet: "text-graphite hover:bg-paper-sunken hover:text-ink",
-  light: "bg-on-night text-night hover:bg-paper",
+  "night-quiet": "text-on-night hover:bg-night-raised",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-8 rounded-md px-3 text-[13px]",
-  md: "h-10 rounded-md px-4 text-sm",
-  lg: "h-12 rounded-md px-5 text-[15px]",
-  icon: "size-10 rounded-md",
+  sm: "h-8 px-3 text-[13px]",
+  md: "h-10 px-4 text-sm",
+  lg: "h-12 px-5 text-[15px]",
+  icon: "size-10",
 };
 
-export function buttonClass(variant: Variant = "primary", size: Size = "md", extra = "") {
-  return `${base} ${variants[variant]} ${sizes[size]} ${extra}`;
+/** 8px by default (DESIGN.md › Shapes); "pill" only inside pill containers like the nav. */
+type Shape = "default" | "pill";
+
+export function buttonClass(variant: Variant = "primary", size: Size = "md", extra = "", shape: Shape = "default") {
+  return `${base} ${variants[variant]} ${sizes[size]} ${shape === "pill" ? "rounded-full" : "rounded-md"} ${extra}`;
 }
 
-type ButtonProps = ComponentProps<"button"> & { variant?: Variant; size?: Size; loading?: boolean; icon?: ReactNode };
+type ButtonProps = ComponentProps<"button"> & { variant?: Variant; size?: Size; shape?: Shape; loading?: boolean; icon?: ReactNode };
 
-export function Button({ variant = "primary", size = "md", loading = false, icon, className = "", children, disabled, ...props }: ButtonProps) {
+export function Button({ variant = "primary", size = "md", shape, loading = false, icon, className = "", children, disabled, ...props }: ButtonProps) {
   return (
     <button
-      className={buttonClass(variant, size, className)}
+      className={buttonClass(variant, size, className, shape)}
       disabled={disabled}
       aria-busy={loading || undefined}
       {...props}
@@ -46,8 +50,8 @@ export function Button({ variant = "primary", size = "md", loading = false, icon
   );
 }
 
-type ButtonLinkProps = ComponentProps<typeof Link> & { variant?: Variant; size?: Size };
+type ButtonLinkProps = ComponentProps<typeof Link> & { variant?: Variant; size?: Size; shape?: Shape };
 
-export function ButtonLink({ variant = "primary", size = "md", className = "", ...props }: ButtonLinkProps) {
-  return <Link className={buttonClass(variant, size, className)} {...props} />;
+export function ButtonLink({ variant = "primary", size = "md", shape, className = "", ...props }: ButtonLinkProps) {
+  return <Link className={buttonClass(variant, size, className, shape)} {...props} />;
 }

@@ -23,10 +23,10 @@ export default function HomePage() {
                 Track income and expenses, understand your spending, and stay in control of your money.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-3">
-                <ButtonLink href="/signup" size="lg" className="rounded-full pl-6 pr-5">
+                <ButtonLink href="/signup" size="lg" className="pl-6 pr-5">
                   Start tracking <ArrowRight aria-hidden className="size-4" />
                 </ButtonLink>
-                <ButtonLink href="/login" size="lg" variant="quiet" className="rounded-full text-on-night hover:bg-night-raised hover:text-on-night">
+                <ButtonLink href="/login" size="lg" variant="night-quiet">
                   Sign in
                 </ButtonLink>
               </div>
@@ -45,7 +45,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-[1200px]">
             <h2 className="max-w-[16ch] text-[38px] font-semibold leading-[1.04] tracking-[-0.035em] sm:text-[56px]">Start understanding your money today.</h2>
             <p className="mt-5 max-w-[44ch] text-night-muted">Free to use. Your first transaction takes about ten seconds.</p>
-            <ButtonLink href="/signup" size="lg" className="mt-9 rounded-full pl-6 pr-5">
+            <ButtonLink href="/signup" size="lg" className="mt-9 pl-6 pr-5">
               Create your free account <ArrowRight aria-hidden className="size-4" />
             </ButtonLink>
           </div>
