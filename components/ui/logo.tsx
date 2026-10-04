@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-/** Wordmark: lowercase Geist with the ember "sun" as the dot. */
+/** Wordmark: lowercase Geist beside the mark — an ember sun setting over the horizon, as in app/icon.svg. */
 export function Logo({ tone = "ink", href = "/", className = "" }: { tone?: "ink" | "night"; href?: string; className?: string }) {
   return (
     <Link
@@ -16,10 +16,10 @@ export function Logo({ tone = "ink", href = "/", className = "" }: { tone?: "ink
 
 export function LogoMark({ className = "size-5" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 20 20" aria-hidden className={className}>
-      <circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.12" />
-      <path d="M3.2 13.4a7.4 7.4 0 0 1 13.6 0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <circle cx="10" cy="9" r="3.3" className="fill-ember-glow" />
+    <svg viewBox="4 5 24 24" aria-hidden className={className}>
+      <path d="M7.63 16a8.5 8.5 0 0 1 16.74 0z" className="fill-ember-glow" />
+      <path d="M6 19.5h20" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M11.5 24h9" strokeOpacity="0.6" strokeWidth="2.5" strokeLinecap="round" className="stroke-ember-glow" />
     </svg>
   );
 }
