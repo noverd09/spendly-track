@@ -26,6 +26,17 @@ export function SiteFooter({ tone = "night" }: { tone?: "night" | "paper" }) {
             Terms
           </Link>
           <span className="tabular">© {new Date().getFullYear()} Spendly</span>
+          <span>
+            Created by{" "}
+            <a
+              href="https://www.noverdagsaan.site"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`underline underline-offset-2 ${link}`}
+            >
+              www.noverdagsaan.site
+            </a>
+          </span>
         </nav>
       </div>
     </footer>

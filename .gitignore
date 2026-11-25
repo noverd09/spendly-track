@@ -48,5 +48,6 @@ next-env.d.ts
 .env*
 # symlink to .agents/skills (recreate with: npx skills add nutlope/hallmark)
 .claude/skills/
+!.env.example
 # supabase cli scratch
 supabase/.temp/
